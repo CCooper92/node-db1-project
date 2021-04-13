@@ -41,8 +41,8 @@ router.put('/:id', mw.checkAccountId, mw.checkAccountPayload, async (req, res, n
 router.delete('/:id', mw.checkAccountId, async (req, res, next) => {
   // DO YOUR MAGIC
   try{
-    const deletedAccount = await Accounts.remove(req.params.id)
-    req.json(deletedAccount)
+    const deletedAccount = await Accounts.deleteById(req.params.id)
+    res.json(deletedAccount)
   }catch(err){
     next(err)
   }
@@ -50,6 +50,7 @@ router.delete('/:id', mw.checkAccountId, async (req, res, next) => {
 
 router.use((err, req, res, next) => { // eslint-disable-line
   // DO YOUR MAGIC
+  res.status(500).json({message: err.message, stack:err.stack})
 })
 
 module.exports = router;

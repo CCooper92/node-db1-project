@@ -16,17 +16,17 @@ const create = async ({name, budget}) => {
   return getById(id)
 }
 
-const updateById = async ({name, budget}) => {
+const updateById = async (id, {name, budget}) => {
   // DO YOUR MAGIC
-  await db("accounts").where("id",id).updateById({name,budget})
+  await db("accounts").where("id",id).update({name,budget})
   return getById(id)
   
 }
 
-const deleteById = async id => {
+const deleteById = async (id) => {
   // DO YOUR MAGIC
   const deletedAccount = await getById(id)
-  await db("accounts").where("id", id).deleteById()
+  await db("accounts").where("id", id).delete()
   return deletedAccount
 }
 
